@@ -175,6 +175,10 @@
             gap: 0.5rem;
             transition: all var(--transition-base);
             box-shadow: var(--shadow-sm);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
         }
         
         .btn-download:hover {
@@ -781,12 +785,12 @@
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
                 
-                <a href="https://github.com/mb0826" target="_blank" rel="noopener noreferrer" class="btn-download">
+                <button onclick="downloadResume()" class="btn-download">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                     </svg>
                     Resume
-                </a>
+                </button>
             </div>
         </div>
     </nav>
@@ -1133,6 +1137,186 @@
     </footer>
     
     <script>
+        // Download Resume Function
+        function downloadResume() {
+            // Create resume HTML content
+            const resumeHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medon Bardic - Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            background: white;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: 2px solid #000;
+            margin: 20px 0 10px 0;
+            padding-bottom: 3px;
+        }
+        h3 {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 15px 0 5px 0;
+        }
+        p, li {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .date {
+            float: right;
+            font-weight: bold;
+        }
+        .company {
+            font-style: italic;
+        }
+        .project-tools {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        @media print {
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Medon Bardic</h1>
+    <div class="contact-info">
+        New York, NY | (917) 698-3796 | Medon.bardic@cix.csi.cuny.edu<br>
+        <a href="https://linkedin.com/in/medon-bardic-529594268">linkedin.com/in/medon-bardic-529594268</a>
+    </div>
+
+    <h2>Objective</h2>
+    <p>Motivated and dependable Computer Science student with a growing foundation in programming, data analysis, and problem-solving. Eager to apply technical knowledge and strong interpersonal skills in a hands-on internship environment. Seeking opportunities to learn, contribute, and grow within a collaborative and innovative tech team.</p>
+
+    <h2>Education</h2>
+    <p><strong>College of Staten Island</strong> - Staten Island, NY<br>
+    Bachelor of Computer Science<br>
+    Expected Graduation: May 2027<br>
+    Current Courses (Spring 2025): Business, Economics, Trigonometry, Macroeconomics</p>
+
+    <h2>Projects</h2>
+    
+    <h3>Portfolio & Project Showcase</h3>
+    <p class="project-tools">Tools Used: React • Tailwind CSS • Node.js • Express.js • GitHub Pages • Framer Motion • EmailJS</p>
+    <ul>
+        <li>Site deployed on GitHub Pages: https://mb0826.github.io</li>
+        <li>Features user authentication, elegant dark/light themes, secure backend integration, and a community-driven review system.</li>
+    </ul>
+
+    <h3>Smoke & Scent – Cigar & Cologne Collection Tracker</h3>
+    <p class="project-tools">Tools Used: React • Tailwind CSS • Node.js • Express • GitHub</p>
+    <ul>
+        <li>Built a modern, responsive web app allowing users to log, rate, and organize their cigar and fragrance collections.</li>
+    </ul>
+
+    <h3>Inflation Analysis and Economic Relationships (Switzerland & Dubai)</h3>
+    <p class="project-tools">Tools Used: Python • Pandas • Matplotlib</p>
+    <ul>
+        <li>Analyzed the relationship between inflation (GDP Deflator, CPI) and economic indicators (borrowing/lending rates, real interest rates) for Switzerland and Dubai.</li>
+        <li>Created visualizations to explore inflation's impact on borrowing and lending rates in both countries.</li>
+        <li>Recorded and presented a video explaining the findings, highlighting economic trends in Switzerland and Dubai.</li>
+    </ul>
+
+    <h3>Stock Trading Algorithm Based on Price Action</h3>
+    <p class="project-tools">Tools Used: Python • TradingView API</p>
+    <ul>
+        <li>Built a simple stock trading algorithm that makes buy or sell decisions based on price action patterns with smart money concepts.</li>
+        <li>Used Trading View API to collect historical stock price data and cleaned and analyzed it using Python.</li>
+        <li>Tested the algorithm through back testing to understand how it would have performed over time, assessing key metrics like profit/loss, win rate, and risk management.</li>
+    </ul>
+
+    <h2>Experience</h2>
+    
+    <h3>Caregiver for Grandmother (Part-Time) <span class="date">August 2021 – March 2025</span></h3>
+    <p class="company">Emanuel Health Corp Home Care Services</p>
+    <ul>
+        <li>Provide daily care for my grandmother, including assistance with mobility and medication management.</li>
+        <li>Regularly monitor health conditions, track vital signs, and coordinate with healthcare professionals to adjust care plans.</li>
+        <li>Manage medical appointments, prescription refills, and ensure timely medication administration.</li>
+    </ul>
+
+    <h3>Cashier <span class="date">January 2018 – August 2018</span></h3>
+    <p class="company">Jaros Pharmacy</p>
+    <ul>
+        <li>Operated the cash register and handled customer transactions accurately in a pharmacy setting.</li>
+        <li>Provided friendly and efficient customer service, helping customers with purchases and general inquiries.</li>
+        <li>Restocked shelves, maintained store cleanliness, and assisted with inventory organization.</li>
+        <li>Demonstrated reliability, punctuality, and professionalism in a retail environment.</li>
+    </ul>
+
+    <h2>Technical Skills</h2>
+    <ul>
+        <li><strong>Programming Languages:</strong> Python, Java, Go (Golang), C++, JavaScript</li>
+        <li><strong>Data Analysis & Visualization:</strong> Pandas, NumPy, Matplotlib, Excel (Data Analysis, Pivot Tables, Formulas)</li>
+        <li><strong>Software Development:</strong> GitHub</li>
+        <li><strong>Tools & Technologies:</strong> Visual Studio Code and PyCharm</li>
+        <li><strong>Microsoft Office Suite:</strong> Word, PowerPoint, Excel</li>
+        <li><strong>Other Skills:</strong> Problem Solving, Algorithm Design, Software Debugging, Learning New Technologies Quickly</li>
+    </ul>
+
+    <h2>Personal Interests</h2>
+    <p>Coding • Personal Projects • Gaming (Competitive & Strategy) • Muay Thai (Martial Arts & Discipline) • Basketball (Teamwork & Tactics) • Cologne Enthusiast</p>
+</body>
+</html>
+            `;
+
+            // Create a Blob from the HTML content
+            const blob = new Blob([resumeHTML], { type: 'text/html' });
+            
+            // Create a download link
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Medon_Bardic_Resume.html';
+            
+            // Trigger download
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Optional: Show a success message
+            console.log('Resume download started!');
+        }
+        
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
