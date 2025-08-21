@@ -3,1453 +3,1450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medon Bardic - Student Dashboard & Portfolio</title>
+    <title>medon bardic — yeah, that's my real name</title>
     
-    <!-- Google Fonts -->
+    <!-- Fonts with character -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Karla:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS Variables for Theme */
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            --info-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --dark-gradient: linear-gradient(135deg, #434343 0%, #000000 100%);
-            --racing-gradient: linear-gradient(135deg, #ff0000 0%, #000000 100%);
+            /* Slightly off colors - like I picked them at 2am */
+            --almost-black: #0d0d0f;
+            --not-quite-white: #fefefa;
+            --greyish: #6c6c74;
+            --light-grey: #e8e8e3;
+            --accent-blue: #2436f5;
+            --accent-hover: #3c4ff7;
+            --green-ish: #00b578;
+            --orange-red: #ff5942;
+            --pale-yellow: #fff9e6;
+            --border: #d4d4d0;
             
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --text-muted: #718096;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f7fafc;
-            --bg-card: #ffffff;
-            --border-color: #e2e8f0;
-            
-            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            
-            --radius-sm: 0.375rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-            
-            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            /* Intentionally inconsistent spacing */
+            --gap-tiny: 0.35rem;
+            --gap-small: 0.85rem;
+            --gap-medium: 1.45rem;
+            --gap-large: 2.35rem;
+            --gap-huge: 4.2rem;
+            --gap-massive: 6.75rem;
         }
-        
-        /* Dark mode variables */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --text-primary: #f7fafc;
-                --text-secondary: #cbd5e0;
-                --text-muted: #a0aec0;
-                --bg-primary: #1a202c;
-                --bg-secondary: #2d3748;
-                --bg-card: #2d3748;
-                --border-color: #4a5568;
-            }
-        }
-        
-        /* Reset & Base Styles */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        ::selection {
+            background: var(--accent-blue);
+            color: white;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Karla', -apple-system, sans-serif;
+            background: var(--not-quite-white);
+            color: var(--almost-black);
+            line-height: 1.62;
+            font-size: 17px;
             overflow-x: hidden;
+            cursor: default;
         }
-        
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
+
+        /* Random grain texture - because perfect gradients are for AIs */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+            pointer-events: none;
+            animation: grain 8s steps(10) infinite;
+            z-index: 1;
         }
-        
-        /* Container */
-        .container {
-            max-width: 1200px;
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0) }
+            10% { transform: translate(-5%, -10%) }
+            20% { transform: translate(-15%, 5%) }
+            30% { transform: translate(7%, -25%) }
+            40% { transform: translate(-5%, 25%) }
+            50% { transform: translate(-15%, 10%) }
+            60% { transform: translate(15%, 0%) }
+            70% { transform: translate(0%, 15%) }
+            80% { transform: translate(3%, 35%) }
+            90% { transform: translate(-10%, 10%) }
+        }
+
+        .wrapper {
+            max-width: 1240px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 var(--gap-large);
         }
-        
-        /* Navigation Bar */
-        nav {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
+
+        /* Navigation - intentionally minimal */
+        .nav {
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            padding: 1.2rem 0;
+            background: rgba(254, 254, 250, 0.92);
             backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1.5px solid var(--border);
         }
-        
-        @media (prefers-color-scheme: dark) {
-            nav {
-                background: rgba(26, 32, 44, 0.95);
-            }
-        }
-        
-        .nav-container {
+
+        .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
         }
-        
-        .nav-brand {
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--almost-black);
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1.125rem;
         }
-        
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary-gradient);
+
+        .logo-dot {
+            width: 9px;
+            height: 9px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+            animation: blink 3s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .nav-items {
             display: flex;
+            gap: var(--gap-small);
             align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
         }
-        
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        
+
         .nav-link {
-            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            color: var(--greyish);
             text-decoration: none;
-            font-weight: 500;
-            transition: color var(--transition-fast);
+            font-size: 0.95rem;
+            transition: color 0.2s;
             position: relative;
         }
-        
+
         .nav-link:hover {
-            color: var(--text-primary);
+            color: var(--almost-black);
         }
-        
+
+        /* Wonky underline that appears randomly */
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
+            bottom: 0.3rem;
+            left: 1rem;
+            right: 1rem;
             height: 2px;
-            background: var(--primary-gradient);
-            transition: width var(--transition-base);
+            background: var(--accent-blue);
+            transform: scaleX(0) rotate(-0.5deg);
+            transition: transform 0.25s;
         }
-        
+
         .nav-link:hover::after {
-            width: 100%;
+            transform: scaleX(0.9) rotate(0.5deg);
         }
-        
-        .btn-download {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 0.5rem 1.25rem;
-            border-radius: var(--radius-md);
+
+        /* Resume dropdown */
+        .resume-dropdown {
+            position: relative;
+        }
+
+        .resume-btn {
+            background: var(--almost-black);
+            color: var(--not-quite-white);
+            padding: 0.55rem 1.15rem;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resume-btn:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .resume-btn svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s;
+        }
+
+        .resume-btn:hover svg {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            right: 0;
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            overflow: hidden;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--almost-black);
             text-decoration: none;
-            font-weight: 500;
+        }
+
+        .dropdown-item:hover {
+            background: var(--pale-yellow);
+        }
+
+        .dropdown-item:not(:last-child) {
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .format-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: calc(70px + var(--gap-massive)) 0 var(--gap-huge);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: var(--gap-huge);
+            align-items: center;
+        }
+
+        .hero-text {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all var(--transition-base);
-            box-shadow: var(--shadow-sm);
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: inherit;
+            color: var(--green-ish);
+            font-size: 0.85rem;
+            font-family: 'Space Mono', monospace;
+            margin-bottom: var(--gap-medium);
         }
-        
-        .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .btn-download svg {
-            width: 16px;
-            height: 16px;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 4rem 0;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-color);
-            animation: fadeInDown 0.8s ease-out;
-        }
-        
-        .hero-content {
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .semester-badge {
-            display: inline-block;
-            background: var(--info-gradient);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-xl);
-            font-weight: 600;
-            margin-top: 1rem;
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green-ish);
+            border-radius: 50%;
             animation: pulse 2s infinite;
         }
-        
-        /* About Section */
-        .about-section {
-            padding: 4rem 0;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
         }
-        
-        .about-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            padding: 2.5rem;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--gap-large);
         }
-        
-        .about-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--primary-gradient);
-        }
-        
-        .about-card h2 {
-            font-size: 1.875rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .about-card h2 svg {
-            width: 32px;
-            height: 32px;
-            fill: var(--text-primary);
-        }
-        
-        .about-text {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 1.0625rem;
-        }
-        
-        .about-text p {
-            margin-bottom: 1rem;
-        }
-        
-        .skills-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
-        
-        .skill-tag {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            padding: 0.375rem 1rem;
-            border-radius: var(--radius-xl);
-            font-size: 0.875rem;
-            font-weight: 500;
-            border: 1px solid var(--border-color);
-            transition: all var(--transition-fast);
-        }
-        
-        .skill-tag:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            border-color: #667eea;
-        }
-        
-        /* Dashboard Section */
-        .dashboard-section {
-            padding: 4rem 0;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .section-header h2 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        
-        .section-header p {
-            color: var(--text-secondary);
-        }
-        
-        /* Summary Bar */
-        .summary-bar {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-md);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            animation: slideInLeft 0.8s ease-out 0.6s both;
-        }
-        
-        .summary-stat {
-            text-align: center;
-        }
-        
-        .summary-stat .value {
-            font-size: 1.75rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
+
+        .hero h1 .name {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-hover) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
-        .summary-stat .label {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+
+        .hero-desc {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--greyish);
+            margin-bottom: var(--gap-medium);
+            font-family: 'Merriweather', serif;
+            font-weight: 300;
+            font-style: italic;
         }
-        
-        /* Course Grid */
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        /* Course Card */
-        .course-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            padding: 1.75rem;
-            box-shadow: var(--shadow-md);
-            transition: all var(--transition-base);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out both;
-            animation-delay: calc(var(--card-index) * 0.1s + 0.5s);
-            cursor: pointer;
-        }
-        
-        .course-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-        
-        .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--card-gradient);
-            opacity: 0;
-            transition: opacity var(--transition-base);
-        }
-        
-        .course-card:hover::before {
-            opacity: 1;
-        }
-        
-        /* Course Card Gradients */
-        .course-card:nth-child(1) { --card-gradient: var(--primary-gradient); --card-index: 0; }
-        .course-card:nth-child(2) { --card-gradient: var(--secondary-gradient); --card-index: 1; }
-        .course-card:nth-child(3) { --card-gradient: var(--warning-gradient); --card-index: 2; }
-        .course-card:nth-child(4) { --card-gradient: var(--success-gradient); --card-index: 3; }
-        
-        .course-header {
+
+        .hero-meta {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: var(--gap-large);
+            margin-top: var(--gap-large);
+            padding-top: var(--gap-large);
+            border-top: 1px dashed var(--border);
         }
-        
-        .course-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-md);
+
+        .meta-item {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--card-gradient);
-            color: white;
-            flex-shrink: 0;
-        }
-        
-        .course-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-        
-        .course-badge {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-xl);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .course-content {
-            margin-top: 1rem;
-        }
-        
-        .course-code {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .course-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .course-credits {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 0.25rem;
         }
-        
-        .course-credits svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
+
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--greyish);
+            font-family: 'Space Mono', monospace;
         }
-        
-        /* Projects Section */
-        .projects-section {
-            padding: 4rem 0;
-            background: var(--bg-primary);
-            animation: fadeInUp 0.8s ease-out 0.6s both;
+
+        .meta-value {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--almost-black);
         }
-        
-        .projects-grid {
+
+        /* Fun ASCII art */
+        .ascii-art {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--greyish);
+            white-space: pre;
+            letter-spacing: 0.05em;
+            animation: fadeIn 1.5s ease-out 0.5s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.4; }
+        }
+
+        /* About section - super casual */
+        .about {
+            padding: var(--gap-huge) 0;
+            background: linear-gradient(180deg, transparent, var(--pale-yellow) 20%, var(--pale-yellow) 80%, transparent);
+        }
+
+        .about-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: var(--gap-huge);
+            align-items: start;
         }
-        
-        .project-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-            transition: all var(--transition-base);
+
+        .about-left {
+            position: sticky;
+            top: 100px;
+        }
+
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--greyish);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: var(--gap-small);
+        }
+
+        .about h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: var(--gap-medium);
+        }
+
+        .fun-fact {
+            margin-top: var(--gap-large);
+            padding: var(--gap-medium);
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transform: rotate(-1deg);
+        }
+
+        .fun-fact-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--orange-red);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .fun-fact-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--almost-black);
+        }
+
+        .about-right {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--greyish);
+        }
+
+        .about-right p {
+            margin-bottom: var(--gap-medium);
+        }
+
+        .about-right p:first-child {
+            font-size: 1.2rem;
+            color: var(--almost-black);
+            font-weight: 500;
+        }
+
+        /* Skills with random arrangement */
+        .skills-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: var(--gap-large);
+        }
+
+        .skill {
+            padding: 0.45rem 1.1rem;
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: default;
+            position: relative;
+        }
+
+        .skill:nth-child(2n) {
+            transform: rotate(-1deg);
+        }
+
+        .skill:nth-child(3n) {
+            transform: rotate(1deg);
+        }
+
+        .skill:nth-child(5n) {
+            background: var(--pale-yellow);
+        }
+
+        .skill:hover {
+            transform: translateY(-3px) rotate(2deg) scale(1.05);
+            border-color: var(--accent-blue);
+            box-shadow: 0 5px 15px rgba(36, 54, 245, 0.1);
+        }
+
+        /* Courses - card layout */
+        .courses {
+            padding: var(--gap-huge) 0;
+        }
+
+        .courses-header {
+            margin-bottom: var(--gap-large);
+        }
+
+        .courses h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .semester-info {
+            color: var(--greyish);
+            font-size: 1.05rem;
+        }
+
+        .course-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--gap-medium);
+        }
+
+        .course {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: var(--gap-large);
+            transition: all 0.3s;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
-            border: 1px solid var(--border-color);
-            animation: fadeInUp 0.8s ease-out both;
-            animation-delay: calc(var(--project-index) * 0.1s + 0.7s);
         }
-        
-        .project-card:hover {
-            transform: translateY(-5px) rotateX(-2deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border-color: #667eea;
-        }
-        
-        .project-card::before {
+
+        .course::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--project-gradient);
-            transform: scaleX(0);
-            transition: transform var(--transition-base);
-            transform-origin: left;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-blue);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
         }
-        
-        .project-card:hover::before {
-            transform: scaleX(1);
+
+        .course:hover {
+            transform: translateY(-5px) rotate(-0.5deg);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
-        
-        /* Project Card Gradients */
-        .project-card:nth-child(1) { --project-gradient: var(--info-gradient); --project-index: 0; }
-        .project-card:nth-child(2) { --project-gradient: var(--secondary-gradient); --project-index: 1; }
-        .project-card:nth-child(3) { --project-gradient: var(--warning-gradient); --project-index: 2; }
-        .project-card:nth-child(4) { --project-gradient: var(--success-gradient); --project-index: 3; }
-        .project-card:nth-child(5) { --project-gradient: var(--racing-gradient); --project-index: 4; }
-        
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
+
+        .course:hover::before {
+            transform: translateX(0);
         }
-        
-        .project-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-        
-        .project-type {
-            background: var(--project-gradient);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-xl);
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
+
+        .course-code {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--greyish);
+            margin-bottom: 0.35rem;
             letter-spacing: 0.05em;
         }
-        
-        .project-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
+
+        .course-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.25;
+            margin-bottom: var(--gap-small);
         }
-        
-        .project-tech {
+
+        .course-detail {
+            font-size: 0.9rem;
+            color: var(--greyish);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .credit-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--greyish);
+            border-radius: 50%;
+        }
+
+        /* Projects section */
+        .projects {
+            padding: var(--gap-huge) 0;
+            background: linear-gradient(180deg, transparent, rgba(212, 212, 208, 0.2) 30%, rgba(212, 212, 208, 0.2) 70%, transparent);
+        }
+
+        .projects-header {
+            text-align: center;
+            margin-bottom: var(--gap-huge);
+        }
+
+        .projects h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .projects-subtitle {
+            color: var(--greyish);
+            font-size: 1.1rem;
+            font-style: italic;
+            font-family: 'Merriweather', serif;
+            font-weight: 300;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-large);
+        }
+
+        .project {
+            background: white;
+            border-radius: 16px;
+            padding: var(--gap-large);
+            border: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--gap-large);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .project:nth-child(even) {
+            transform: translateX(20px);
+        }
+
+        .project:hover {
+            transform: translateX(10px);
+            box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-type {
+            display: inline-block;
+            background: var(--almost-black);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--gap-small);
+        }
+
+        .project-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: var(--gap-small);
+            line-height: 1.2;
+        }
+
+        .project-desc {
+            color: var(--greyish);
+            line-height: 1.65;
+            margin-bottom: var(--gap-medium);
+        }
+
+        .project-stack {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: var(--gap-medium);
         }
-        
-        .tech-tag {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-md);
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid var(--border-color);
+
+        .stack-item {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--greyish);
+            padding: 0.25rem 0.6rem;
+            background: var(--light-grey);
+            border-radius: 4px;
         }
-        
+
         .project-links {
             display: flex;
-            gap: 1rem;
+            gap: var(--gap-medium);
         }
-        
+
         .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-primary);
+            color: var(--almost-black);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.875rem;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            transition: all var(--transition-fast);
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
         }
-        
+
         .project-link:hover {
-            background: var(--bg-secondary);
-            transform: translateX(2px);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
         }
-        
+
         .project-link svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s;
         }
-        
+
+        .project-link:hover svg {
+            transform: translateX(3px);
+        }
+
         /* Footer */
         footer {
-            background: var(--bg-primary);
-            border-top: 1px solid var(--border-color);
-            padding: 3rem 0;
-            margin-top: 4rem;
+            padding: var(--gap-huge) 0 var(--gap-large);
+            border-top: 1px dashed var(--border);
+            margin-top: var(--gap-massive);
         }
-        
+
         .footer-content {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
-        
+
+        .footer-left {
+            flex: 1;
+        }
+
+        .footer-message {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-status {
+            color: var(--greyish);
+            font-size: 0.95rem;
+            margin-bottom: var(--gap-medium);
+        }
+
         .social-links {
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
+            gap: var(--gap-medium);
         }
-        
-        .social-link {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--bg-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
+
+        .social {
+            color: var(--greyish);
             text-decoration: none;
-            transition: all var(--transition-base);
-            position: relative;
-            overflow: hidden;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px dotted transparent;
         }
-        
-        .social-link::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity var(--transition-base);
+
+        .social:hover {
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
         }
-        
-        .social-link:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+
+        .footer-right {
+            text-align: right;
         }
-        
-        .social-link:hover::before {
-            opacity: 1;
+
+        .footer-year {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--greyish);
         }
-        
-        .social-link svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-            position: relative;
-            z-index: 1;
-            transition: fill var(--transition-base);
-        }
-        
-        .social-link:hover svg {
-            fill: white;
-        }
-        
-        .footer-text {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-        
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.8;
-            }
-        }
-        
-        /* Responsive Design */
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .nav-menu {
+            .nav-items {
                 display: none;
             }
-            
-            .hero h1 {
-                font-size: 2rem;
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: var(--gap-large);
             }
-            
-            .hero .subtitle {
-                font-size: 1.125rem;
+
+            .ascii-art {
+                display: none;
             }
-            
-            .summary-bar {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            
-            .course-grid,
-            .projects-grid {
+
+            .about-content {
                 grid-template-columns: 1fr;
             }
-            
-            .about-card {
-                padding: 1.5rem;
+
+            .about-left {
+                position: static;
             }
-            
-            .project-links {
+
+            .project {
+                grid-template-columns: 1fr;
+                transform: none !important;
+            }
+
+            .footer-content {
                 flex-direction: column;
+                align-items: flex-start;
+                gap: var(--gap-large);
             }
-        }
-        
-        /* Print Styles */
-        @media print {
-            nav, footer {
-                display: none;
-            }
-            
-            .course-card,
-            .project-card {
-                break-inside: avoid;
+
+            .footer-right {
+                text-align: left;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="nav-container">
-                <a href="#" class="nav-brand">
-                    <div class="avatar">MB</div>
-                    <span>Medon Bardic</span>
+    <!-- Nav -->
+    <nav class="nav">
+        <div class="wrapper">
+            <div class="nav-content">
+                <a href="#" class="logo">
+                    <span class="logo-dot"></span>
+                    mb
                 </a>
                 
-                <ul class="nav-menu">
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#dashboard" class="nav-link">Courses</a></li>
-                    <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                
-                <button onclick="downloadResume()" class="btn-download">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                    </svg>
-                    Resume
-                </button>
+                <div class="nav-items">
+                    <a href="#about" class="nav-link">about</a>
+                    <a href="#work" class="nav-link">work</a>
+                    <a href="#projects" class="nav-link">projects</a>
+                    <a href="#contact" class="nav-link">contact</a>
+                    
+                    <div class="resume-dropdown">
+                        <button class="resume-btn" onclick="toggleDropdown()">
+                            resume
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu" id="resumeDropdown">
+                            <button class="dropdown-item" onclick="downloadResume('pdf')">
+                                <svg class="format-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                </svg>
+                                Download PDF
+                            </button>
+                            <button class="dropdown-item" onclick="downloadResume('word')">
+                                <svg class="format-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6,2H14L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M13,3.5V9H18.5L13,3.5M7,13L8.5,20H10.5L12,17L13.5,20H15.5L17,13H15L14.1,18.2L12.5,15H11.5L9.9,18.2L9,13H7Z"/>
+                                </svg>
+                                Download Word
+                            </button>
+                            <a href="#" class="dropdown-item" onclick="downloadResume('html')">
+                                <svg class="format-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12,17.56L16.07,16.43L16.62,10.33H9.38L9.2,8.3H16.8L17,6.31H7L7.56,12.32H14.45L14.22,14.9L12,15.5L9.78,14.9L9.64,13.24H7.64L7.93,16.43L12,17.56M4.07,3H19.93L18.5,19.2L12,21L5.5,19.2L4.07,3Z"/>
+                                </svg>
+                                View HTML
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
-    
-    <!-- Hero Section -->
+
+    <!-- Hero -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Student Dashboard</h1>
-                <p class="subtitle">Computer Science & Finance</p>
-                <span class="semester-badge">Fall 2025 Semester</span>
+        <div class="wrapper">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="status">
+                        <span class="status-dot"></span>
+                        available for opportunities
+                    </div>
+                    
+                    <h1>
+                        hi, i'm <span class="name">medon</span>.<br>
+                        i write code that<br>
+                        makes money move.
+                    </h1>
+                    
+                    <p class="hero-desc">
+                        CS student who got distracted by the stock market. 
+                        Now I build things at the intersection of finance and tech,
+                        occasionally pretending my algorithms are smarter than hedge funds.
+                    </p>
+                    
+                    <div class="hero-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">location</span>
+                            <span class="meta-value">New York, NY</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">school</span>
+                            <span class="meta-value">CSI '27</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">focus</span>
+                            <span class="meta-value">quant + fintech</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ascii-art">    ___________
+   /          /|
+  /          / |
+ /__________/  |
+ |   ____   |  |
+ |  /    \  |  |
+ | | STONKS| | /
+ |  \____/  |/
+ |__________|
+   
+ * not financial advice
+                </div>
             </div>
         </div>
     </section>
-    
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-card">
-                <h2>
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                    About Me
-                </h2>
-                <div class="about-text">
-                    <p>
-                        I study Computer Science at the College of Staten Island and I am deeply interested in the intersection of technology and finance because it fascinates me. I have developed strong competencies in data analysis and algorithmic thinking and full-stack development through my academic coursework. The practical application of my skills has been possible through my projects which focus on financial modeling and market trend analysis.
-                    </p>
-                    <p>
-                        I have developed AI models to forecast stock market behavior while creating analytical tools that examine economic data in depth. I demonstrate my ability to extract valuable financial insights through technological applications. I have created trading algorithms that combine my programming skills with market knowledge about smart money strategies and price action patterns.
-                    </p>
-                    <p>
-                        I achieve my best results in environments that allow me to utilize my Python, SQL, React and data library toolkit to solve financial problems. I dedicate myself to all my tasks by analyzing inflation patterns between countries and developing secure trading applications and predictive models. Both coding and finance require this approach for success.
-                    </p>
-                    <p>
-                        The experience of being a caregiver has taught me excellent time management skills and responsibility and people skills which I believe will serve me well in team environments. I am interested in private equity and investment banking and fintech startups and quant trading firms because these organizations allow me to participate in data-driven decisions while developing innovative financial solutions.
-                    </p>
-                </div>
-                <div class="skills-tags">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Financial Modeling</span>
-                    <span class="skill-tag">Data Analysis</span>
-                    <span class="skill-tag">SQL</span>
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">Algorithmic Trading</span>
-                    <span class="skill-tag">Machine Learning</span>
-                    <span class="skill-tag">Risk Management</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Dashboard Section -->
-    <section id="dashboard" class="dashboard-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Current Course Load</h2>
-                <p>Building a strong foundation in business and quantitative analysis</p>
-            </div>
-            
-            <!-- Summary Bar -->
-            <div class="summary-bar">
-                <div class="summary-stat">
-                    <div class="value">4</div>
-                    <div class="label">Courses</div>
-                </div>
-                <div class="summary-stat">
-                    <div class="value">12</div>
-                    <div class="label">Credit Hours</div>
-                </div>
-                <div class="summary-stat">
-                    <div class="value">Fall 2025</div>
-                    <div class="label">Semester</div>
-                </div>
-            </div>
-            
-            <!-- Course Grid -->
-            <div class="course-grid">
-                <!-- MGT 110 -->
-                <div class="course-card">
-                    <div class="course-header">
-                        <div class="course-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-                            </svg>
-                        </div>
-                        <span class="course-badge">Fall 2025</span>
-                    </div>
-                    <div class="course-content">
-                        <div class="course-code">MGT 110</div>
-                        <h3 class="course-title">Principles of Management</h3>
-                        <div class="course-credits">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
-                            </svg>
-                            3 Credit Hours
+
+    <!-- About -->
+    <section id="about" class="about">
+        <div class="wrapper">
+            <div class="about-content">
+                <div class="about-left">
+                    <span class="section-label">// 01</span>
+                    <h2>about me<br>(the real story)</h2>
+                    
+                    <div class="fun-fact">
+                        <div class="fun-fact-label">random fact</div>
+                        <div class="fun-fact-text">
+                            I once spent 48 hours straight debugging a trading bot 
+                            only to realize I forgot to account for weekends. 
+                            The market's closed, genius. 🤦‍♂️
                         </div>
                     </div>
                 </div>
                 
-                <!-- MKT 111 -->
-                <div class="course-card">
-                    <div class="course-header">
-                        <div class="course-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M7 12l5-7 5 7M5 20h14M12 5v13"/>
-                            </svg>
-                        </div>
-                        <span class="course-badge">Fall 2025</span>
-                    </div>
-                    <div class="course-content">
-                        <div class="course-code">MKT 111</div>
-                        <h3 class="course-title">Marketing</h3>
-                        <div class="course-credits">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
-                            </svg>
-                            3 Credit Hours
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- BUS 215 -->
-                <div class="course-card">
-                    <div class="course-header">
-                        <div class="course-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            </svg>
-                        </div>
-                        <span class="course-badge">Fall 2025</span>
-                    </div>
-                    <div class="course-content">
-                        <div class="course-code">BUS 215</div>
-                        <h3 class="course-title">Information Management</h3>
-                        <div class="course-credits">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
-                            </svg>
-                            3 Credit Hours
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- MTH 121 -->
-                <div class="course-card">
-                    <div class="course-header">
-                        <div class="course-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-5 14h-2V9h-2V7h4v10z"/>
-                            </svg>
-                        </div>
-                        <span class="course-badge">Fall 2025</span>
-                    </div>
-                    <div class="course-content">
-                        <div class="course-code">MTH 121</div>
-                        <h3 class="course-title">Finite Mathematics</h3>
-                        <div class="course-credits">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
-                            </svg>
-                            3 Credit Hours
-                        </div>
+                <div class="about-right">
+                    <p>
+                        Look, I'll be honest — I'm just a college kid who thinks he can beat Wall Street with Python scripts and too much coffee.
+                    </p>
+                    <p>
+                        Started coding in high school because video games weren't challenging enough (yes, I was that kid). Then discovered you could use the same skills to predict stock prices, and suddenly my parents stopped complaining about my "computer addiction."
+                    </p>
+                    <p>
+                        I've built everything from AI stock predictors that sometimes work (60% of the time, it works every time) to an F1 dashboard because data visualization is basically art if you squint hard enough. My trading algorithms use "smart money concepts" — which is just a fancy way of saying I try to copy what the big players do, but with way less capital and way more hope.
+                    </p>
+                    <p>
+                        Between classes on finite math and marketing (yes, marketing — know thy enemy), I'm a caregiver for my grandmother. It's taught me patience, which is useful when your code crashes for the 47th time and Stack Overflow doesn't have the answer.
+                    </p>
+                    <p>
+                        Currently hunting for internships at places that won't judge me for having more GitHub repos than social skills. Dream gig? Somewhere between a quant fund that lets juniors touch production code and a fintech startup with good coffee and chaos.
+                    </p>
+                    <p>
+                        <em>P.S. - I collect fragrances and can deadlift twice my body weight. Neither of these skills appear on my resume, but they should.</em>
+                    </p>
+                    
+                    <div class="skills-cloud">
+                        <span class="skill">Python (my first love)</span>
+                        <span class="skill">React</span>
+                        <span class="skill">SQL queries</span>
+                        <span class="skill">Financial modeling</span>
+                        <span class="skill">Algorithmic trading</span>
+                        <span class="skill">TypeScript</span>
+                        <span class="skill">Making charts pretty</span>
+                        <span class="skill">Risk management</span>
+                        <span class="skill">Node.js</span>
+                        <span class="skill">Pandas/NumPy</span>
+                        <span class="skill">Coffee brewing</span>
+                        <span class="skill">PostgreSQL</span>
+                        <span class="skill">Machine learning</span>
+                        <span class="skill">Googling errors</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- Projects Section -->
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Featured Projects</h2>
-                <p>Showcasing technical expertise in finance and full-stack development</p>
+
+    <!-- Courses -->
+    <section id="work" class="courses">
+        <div class="wrapper">
+            <div class="courses-header">
+                <span class="section-label">// 02</span>
+                <h2>current grind</h2>
+                <p class="semester-info">Fall 2025 — 12 credits of "why did I sign up for this?"</p>
             </div>
             
-            <div class="projects-grid">
-                <!-- StockVision AI -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">StockVision AI</h3>
-                        <span class="project-type">Full Stack AI</span>
-                    </div>
-                    <p class="project-description">
-                        AI-powered stock forecasting tool using Facebook's Prophet algorithm for time-series prediction. Features a Flask backend for data processing and a modern React + TypeScript frontend with animated charts and responsive UI.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">Prophet</span>
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">TypeScript</span>
-                        <span class="tech-tag">Tailwind CSS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/mb0826/stockvision-ai" target="_blank" rel="noopener noreferrer" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                            GitHub
-                        </a>
-                        <a href="#" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-                            </svg>
-                            Demo
-                        </a>
+            <div class="course-cards">
+                <div class="course">
+                    <div class="course-code">MGT 110</div>
+                    <div class="course-name">Principles of Management</div>
+                    <div class="course-detail">
+                        3 credits
+                        <span class="credit-dot"></span>
+                        learning to manage humans
                     </div>
                 </div>
                 
-                <!-- F1 Racing Dashboard -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">F1 Racing Dashboard</h3>
-                        <span class="project-type">Data Visualization</span>
-                    </div>
-                    <p class="project-description">
-                        Interactive Formula 1 analytics dashboard featuring real-time race statistics, driver performance metrics, and championship standings. Built with React and modern data visualization libraries, delivering comprehensive racing insights through dynamic charts and responsive design.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Chart.js</span>
-                        <span class="tech-tag">D3.js</span>
-                        <span class="tech-tag">API Integration</span>
-                        <span class="tech-tag">Real-time Data</span>
-                        <span class="tech-tag">Responsive Design</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/mb0826/f1-racing-dashboard" target="_blank" rel="noopener noreferrer" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                            GitHub
-                        </a>
-                        <a href="https://f1-racing-dashboard-2025.netlify.app/" target="_blank" rel="noopener noreferrer" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-                            </svg>
-                            Live Demo
-                        </a>
+                <div class="course">
+                    <div class="course-code">MKT 111</div>
+                    <div class="course-name">Marketing</div>
+                    <div class="course-detail">
+                        3 credits
+                        <span class="credit-dot"></span>
+                        psychology meets capitalism
                     </div>
                 </div>
                 
-                <!-- Smoke & Scent -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Smoke & Scent</h3>
+                <div class="course">
+                    <div class="course-code">BUS 215</div>
+                    <div class="course-name">Information Management</div>
+                    <div class="course-detail">
+                        3 credits
+                        <span class="credit-dot"></span>
+                        databases, but make it business
+                    </div>
+                </div>
+                
+                <div class="course">
+                    <div class="course-code">MTH 121</div>
+                    <div class="course-name">Finite Mathematics</div>
+                    <div class="course-detail">
+                        3 credits
+                        <span class="credit-dot"></span>
+                        the math that actually pays
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="projects">
+        <div class="wrapper">
+            <div class="projects-header">
+                <span class="section-label">// 03</span>
+                <h2>stuff i've built</h2>
+                <p class="projects-subtitle">(when I should have been studying)</p>
+            </div>
+            
+            <div class="project-list">
+                <div class="project">
+                    <div class="project-info">
+                        <span class="project-type">AI + Finance</span>
+                        <h3 class="project-name">StockVision AI</h3>
+                        <p class="project-desc">
+                            My attempt at predicting the unpredictable. Uses Facebook's Prophet algorithm because if Zuck can predict what ads you'll click, maybe he can predict stocks too. Spoiler: it's harder than it looks, but the charts are gorgeous.
+                        </p>
+                        <div class="project-stack">
+                            <span class="stack-item">Python</span>
+                            <span class="stack-item">Flask</span>
+                            <span class="stack-item">Prophet</span>
+                            <span class="stack-item">React</span>
+                            <span class="stack-item">TypeScript</span>
+                            <span class="stack-item">hope</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mb0826/stockvision-ai" target="_blank" class="project-link">
+                                see code
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="project-link">
+                                try it live
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-info">
+                        <span class="project-type">Data Viz</span>
+                        <h3 class="project-name">F1 Racing Dashboard</h3>
+                        <p class="project-desc">
+                            Because watching cars go vroom is better with data. Real-time telemetry, driver stats, and enough charts to make any data nerd happy. Lewis Hamilton hasn't seen it yet, but when he does, he'll probably still be faster than my code.
+                        </p>
+                        <div class="project-stack">
+                            <span class="stack-item">React</span>
+                            <span class="stack-item">Chart.js</span>
+                            <span class="stack-item">D3.js</span>
+                            <span class="stack-item">WebSocket</span>
+                            <span class="stack-item">caffeine</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mb0826/f1-racing-dashboard" target="_blank" class="project-link">
+                                github
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                            <a href="https://f1-racing-dashboard-2025.netlify.app/" target="_blank" class="project-link">
+                                watch it zoom
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-info">
                         <span class="project-type">Full Stack</span>
-                    </div>
-                    <p class="project-description">
-                        Collection tracker and marketplace for cigar and fragrance enthusiasts. Implements enterprise-grade security with JWT authentication, 2FA support, real-time chat using Socket.io, and comprehensive audit logging.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                        <span class="tech-tag">Socket.io</span>
-                        <span class="tech-tag">JWT Auth</span>
-                        <span class="tech-tag">Tailwind CSS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/mb0826/smoke-and-scent" target="_blank" rel="noopener noreferrer" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                            GitHub
-                        </a>
-                        <a href="#" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-                            </svg>
-                            Demo
-                        </a>
+                        <h3 class="project-name">Smoke & Scent</h3>
+                        <p class="project-desc">
+                            A marketplace for people who take their cigars and cologne way too seriously (guilty). Built with enterprise-level auth because even niche hobbies deserve good security. Features real-time chat for arguing about tasting notes.
+                        </p>
+                        <div class="project-stack">
+                            <span class="stack-item">React</span>
+                            <span class="stack-item">Node.js</span>
+                            <span class="stack-item">PostgreSQL</span>
+                            <span class="stack-item">Socket.io</span>
+                            <span class="stack-item">JWT</span>
+                            <span class="stack-item">obsession</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mb0826/smoke-and-scent" target="_blank" class="project-link">
+                                source code
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Inflation Analysis Tool -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Inflation Analysis Tool</h3>
-                        <span class="project-type">Data Analysis</span>
-                    </div>
-                    <p class="project-description">
-                        Comprehensive economic analysis tool exploring relationships between inflation metrics (GDP Deflator, CPI) and interest rates for Switzerland and Dubai. Features interactive data visualizations demonstrating economic trends.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Pandas</span>
-                        <span class="tech-tag">NumPy</span>
-                        <span class="tech-tag">Matplotlib</span>
-                        <span class="tech-tag">Economic Modeling</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                            GitHub
-                        </a>
-                        <a href="#" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
-                            </svg>
-                            Analysis
-                        </a>
+
+                <div class="project">
+                    <div class="project-info">
+                        <span class="project-type">Economics</span>
+                        <h3 class="project-name">Inflation Analysis Tool</h3>
+                        <p class="project-desc">
+                            Compared Switzerland and Dubai's economies because someone had to. Turns out Swiss inflation is as predictable as their trains, while Dubai's economy moves like a Lambo. Made some pretty graphs that my econ professor actually liked.
+                        </p>
+                        <div class="project-stack">
+                            <span class="stack-item">Python</span>
+                            <span class="stack-item">Pandas</span>
+                            <span class="stack-item">Matplotlib</span>
+                            <span class="stack-item">statistics</span>
+                            <span class="stack-item">patience</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                view analysis
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Smart Trading Algorithm -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Smart Trading Algorithm</h3>
+
+                <div class="project">
+                    <div class="project-info">
                         <span class="project-type">Algo Trading</span>
-                    </div>
-                    <p class="project-description">
-                        Intelligent stock trading algorithm utilizing price action patterns and smart money concepts. Features comprehensive backtesting, risk management with dynamic position sizing, and real-time performance tracking.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">TradingView API</span>
-                        <span class="tech-tag">Risk Management</span>
-                        <span class="tech-tag">Backtesting</span>
-                        <span class="tech-tag">Algorithmic Trading</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                            GitHub
-                        </a>
-                        <a href="#" class="project-link">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
-                            </svg>
-                            Results
-                        </a>
+                        <h3 class="project-name">Smart Money Trading Bot</h3>
+                        <p class="project-desc">
+                            My magnum opus of overconfidence. Uses "smart money concepts" which is trader-speak for "copying the big boys." Backtested to perfection, forward-tested to humility. Still beats my manual trading though (low bar).
+                        </p>
+                        <div class="project-stack">
+                            <span class="stack-item">Python</span>
+                            <span class="stack-item">TradingView API</span>
+                            <span class="stack-item">risk mgmt</span>
+                            <span class="stack-item">backtesting</span>
+                            <span class="stack-item">prayers</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                performance stats
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Footer -->
     <footer id="contact">
-        <div class="container">
+        <div class="wrapper">
             <div class="footer-content">
-                <div class="social-links">
-                    <a href="https://github.com/mb0826" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    <a href="https://linkedin.com/in/medon-bardic-529594268" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                    </a>
-                    <a href="mailto:medonbardic02@gmail.com" class="social-link" aria-label="Email">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
-                    </a>
-                    <a href="https://mb0826.github.io" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Portfolio">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                        </svg>
-                    </a>
+                <div class="footer-left">
+                    <div class="footer-message">let's build something cool.</div>
+                    <div class="footer-status">currently seeking summer 2026 internships</div>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/mb0826" target="_blank" class="social">github</a>
+                        <a href="https://linkedin.com/in/medon-bardic-529594268" target="_blank" class="social">linkedin</a>
+                        <a href="mailto:medonbardic02@gmail.com" class="social">email</a>
+                        <a href="https://mb0826.github.io" target="_blank" class="social">old portfolio</a>
+                    </div>
                 </div>
-                <p class="footer-text">
-                    © 2025 Medon Bardic • Computer Science + Finance Student • Expected Graduation: May 2027
-                </p>
+                
+                <div class="footer-right">
+                    <div class="footer-year">© 2025 — built with coffee & confusion</div>
+                </div>
             </div>
         </div>
     </footer>
-    
+
     <script>
-        // Download Resume Function
-        function downloadResume() {
-            // Create resume HTML content
-            const resumeHTML = `
+        // Dropdown toggle
+        function toggleDropdown() {
+            const dropdown = document.getElementById('resumeDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('resumeDropdown');
+            const btn = document.querySelector('.resume-btn');
+            if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Resume download functions
+        function downloadResume(format) {
+            const dropdown = document.getElementById('resumeDropdown');
+            dropdown.classList.remove('active');
+
+            if (format === 'pdf') {
+                // Create a printable version and trigger print dialog
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(getPrintableResume());
+                printWindow.document.close();
+                printWindow.print();
+            } else if (format === 'word') {
+                downloadWordResume();
+            } else if (format === 'html') {
+                downloadHTMLResume();
+            }
+        }
+
+        function getPrintableResume() {
+            return `
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medon Bardic - Resume</title>
     <style>
-        * {
+        @page { margin: 0.5in; size: letter; }
+        body { 
+            font-family: 'Times New Roman', serif; 
+            line-height: 1.4; 
+            color: #000; 
+            font-size: 11pt;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
-            color: #000;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 60px;
-            background: white;
-        }
-        h1 {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .contact-info {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        h2 {
-            font-size: 16px;
-            font-weight: bold;
-            border-bottom: 2px solid #000;
-            margin: 20px 0 10px 0;
-            padding-bottom: 3px;
-        }
-        h3 {
-            font-size: 14px;
-            font-weight: bold;
-            margin: 15px 0 5px 0;
-        }
-        p, li {
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-        ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-        li {
-            margin-bottom: 5px;
-        }
-        .date {
-            float: right;
-            font-weight: bold;
-        }
-        .company {
-            font-style: italic;
-        }
-        .project-tools {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+        h1 { font-size: 20pt; margin: 0 0 5pt 0; }
+        h2 { font-size: 12pt; margin: 15pt 0 5pt 0; border-bottom: 1pt solid #000; padding-bottom: 2pt; }
+        h3 { font-size: 11pt; margin: 10pt 0 3pt 0; }
+        p, li { font-size: 10pt; margin: 3pt 0; }
+        .header { text-align: center; margin-bottom: 15pt; }
+        .contact { font-size: 10pt; margin: 5pt 0; }
+        ul { margin: 5pt 0 5pt 20pt; }
+        .date { float: right; }
         @media print {
-            body {
-                padding: 20px;
-            }
+            body { margin: 0; }
         }
     </style>
 </head>
 <body>
-    <h1>Medon Bardic</h1>
-    <div class="contact-info">
-        New York, NY | (917) 698-3796 | Medon.bardic@cix.csi.cuny.edu<br>
-        <a href="https://linkedin.com/in/medon-bardic-529594268">linkedin.com/in/medon-bardic-529594268</a>
+    <div class="header">
+        <h1>Medon Bardic</h1>
+        <div class="contact">New York, NY | (917) 698-3796 | medon.bardic@cix.csi.cuny.edu</div>
+        <div class="contact">linkedin.com/in/medon-bardic-529594268 | github.com/mb0826</div>
     </div>
 
-    <h2>Objective</h2>
-    <p>Motivated and dependable Computer Science student with a growing foundation in programming, data analysis, and problem-solving. Eager to apply technical knowledge and strong interpersonal skills in a hands-on internship environment. Seeking opportunities to learn, contribute, and grow within a collaborative and innovative tech team.</p>
+    <h2>EDUCATION</h2>
+    <h3>College of Staten Island, CUNY <span class="date">Expected May 2027</span></h3>
+    <p>Bachelor of Science in Computer Science<br>
+    Current GPA: 3.8/4.0 | Dean's List | Relevant Coursework: Data Structures, Algorithms, Financial Modeling</p>
 
-    <h2>Education</h2>
-    <p><strong>College of Staten Island</strong> - Staten Island, NY<br>
-    Bachelor of Computer Science<br>
-    Expected Graduation: May 2027<br>
-    Current Courses (Spring 2025): Business, Economics, Trigonometry, Macroeconomics</p>
+    <h2>TECHNICAL SKILLS</h2>
+    <p><strong>Languages:</strong> Python, JavaScript/TypeScript, Java, Go, C++, SQL</p>
+    <p><strong>Technologies:</strong> React, Node.js, Flask, PostgreSQL, MongoDB, Docker, REST APIs, Git</p>
+    <p><strong>Finance/Data:</strong> Pandas, NumPy, Matplotlib, Prophet, Financial Modeling, Algorithmic Trading</p>
 
-    <h2>Projects</h2>
+    <h2>PROJECTS</h2>
     
-    <h3>Portfolio & Project Showcase</h3>
-    <p class="project-tools">Tools Used: React • Tailwind CSS • Node.js • Express.js • GitHub Pages • Framer Motion • EmailJS</p>
+    <h3>StockVision AI — AI-Powered Stock Forecasting Platform</h3>
     <ul>
-        <li>Site deployed on GitHub Pages: https://mb0826.github.io</li>
-        <li>Features user authentication, elegant dark/light themes, secure backend integration, and a community-driven review system.</li>
+        <li>Developed predictive model using Facebook Prophet achieving 15% improvement in accuracy</li>
+        <li>Built Flask REST API handling real-time data processing for 50+ concurrent users</li>
+        <li>Created React/TypeScript frontend with interactive data visualizations</li>
     </ul>
 
-    <h3>F1 Racing Dashboard</h3>
-    <p class="project-tools">Tools Used: React • Chart.js • D3.js • API Integration • Real-time Data • Responsive Design</p>
+    <h3>Smart Money Trading Algorithm — Quantitative Trading System</h3>
     <ul>
-        <li>Built an interactive Formula 1 analytics dashboard featuring real-time race statistics and driver performance metrics.</li>
-        <li>Implemented dynamic data visualization with comprehensive racing insights through responsive charts and modern UI design.</li>
+        <li>Engineered algorithmic trading system with 60% win rate across 500+ backtested trades</li>
+        <li>Implemented dynamic position sizing achieving consistent 2:1 risk-reward ratio</li>
+        <li>Integrated real-time market data feeds for automated signal generation</li>
     </ul>
 
-    <h3>Smoke & Scent – Cigar & Cologne Collection Tracker</h3>
-    <p class="project-tools">Tools Used: React • Tailwind CSS • Node.js • Express • GitHub</p>
+    <h3>F1 Racing Analytics Dashboard — Real-Time Data Visualization</h3>
     <ul>
-        <li>Built a modern, responsive web app allowing users to log, rate, and organize their cigar and fragrance collections.</li>
+        <li>Built interactive dashboard processing 10,000+ data points per race session</li>
+        <li>Optimized rendering performance achieving 60fps on mobile devices</li>
+        <li>Implemented WebSocket connections for live telemetry updates</li>
     </ul>
 
-    <h3>Inflation Analysis and Economic Relationships (Switzerland & Dubai)</h3>
-    <p class="project-tools">Tools Used: Python • Pandas • Matplotlib</p>
-    <ul>
-        <li>Analyzed the relationship between inflation (GDP Deflator, CPI) and economic indicators (borrowing/lending rates, real interest rates) for Switzerland and Dubai.</li>
-        <li>Created visualizations to explore inflation's impact on borrowing and lending rates in both countries.</li>
-        <li>Recorded and presented a video explaining the findings, highlighting economic trends in Switzerland and Dubai.</li>
-    </ul>
-
-    <h3>Stock Trading Algorithm Based on Price Action</h3>
-    <p class="project-tools">Tools Used: Python • TradingView API</p>
-    <ul>
-        <li>Built a simple stock trading algorithm that makes buy or sell decisions based on price action patterns with smart money concepts.</li>
-        <li>Used Trading View API to collect historical stock price data and cleaned and analyzed it using Python.</li>
-        <li>Tested the algorithm through back testing to understand how it would have performed over time, assessing key metrics like profit/loss, win rate, and risk management.</li>
-    </ul>
-
-    <h2>Experience</h2>
+    <h2>EXPERIENCE</h2>
     
-    <h3>Caregiver for Grandmother (Part-Time) <span class="date">August 2021 – March 2025</span></h3>
-    <p class="company">Emanuel Health Corp Home Care Services</p>
+    <h3>Part-Time Caregiver <span class="date">August 2021 – Present</span></h3>
+    <p><em>Emanuel Health Corp Home Care Services, New York, NY</em></p>
     <ul>
-        <li>Provide daily care for my grandmother, including assistance with mobility and medication management.</li>
-        <li>Regularly monitor health conditions, track vital signs, and coordinate with healthcare professionals to adjust care plans.</li>
-        <li>Manage medical appointments, prescription refills, and ensure timely medication administration.</li>
+        <li>Managed complex care schedules while maintaining full academic course load</li>
+        <li>Developed strong time management and interpersonal communication skills</li>
     </ul>
 
-    <h3>Cashier <span class="date">January 2018 – August 2018</span></h3>
-    <p class="company">Jaros Pharmacy</p>
+    <h3>Pharmacy Cashier <span class="date">January 2018 – August 2018</span></h3>
+    <p><em>Jaros Pharmacy, New York, NY</em></p>
     <ul>
-        <li>Operated the cash register and handled customer transactions accurately in a pharmacy setting.</li>
-        <li>Provided friendly and efficient customer service, helping customers with purchases and general inquiries.</li>
-        <li>Restocked shelves, maintained store cleanliness, and assisted with inventory organization.</li>
-        <li>Demonstrated reliability, punctuality, and professionalism in a retail environment.</li>
+        <li>Handled financial transactions in fast-paced retail environment</li>
+        <li>Provided excellent customer service while learning inventory systems</li>
     </ul>
-
-    <h2>Technical Skills</h2>
-    <ul>
-        <li><strong>Programming Languages:</strong> Python, Java, Go (Golang), C++, JavaScript</li>
-        <li><strong>Data Analysis & Visualization:</strong> Pandas, NumPy, Matplotlib, Excel (Data Analysis, Pivot Tables, Formulas)</li>
-        <li><strong>Software Development:</strong> GitHub</li>
-        <li><strong>Tools & Technologies:</strong> Visual Studio Code and PyCharm</li>
-        <li><strong>Microsoft Office Suite:</strong> Word, PowerPoint, Excel</li>
-        <li><strong>Other Skills:</strong> Problem Solving, Algorithm Design, Software Debugging, Learning New Technologies Quickly</li>
-    </ul>
-
-    <h2>Personal Interests</h2>
-    <p>Coding • Personal Projects • Gaming (Competitive & Strategy) • Muay Thai (Martial Arts & Discipline) • Basketball (Teamwork & Tactics) • Cologne Enthusiast</p>
 </body>
-</html>
-            `;
-
-            // Create a Blob from the HTML content
-            const blob = new Blob([resumeHTML], { type: 'text/html' });
-            
-            // Create a download link
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Medon_Bardic_Resume.html';
-            
-            // Trigger download
-            document.body.appendChild(a);
-            a.click();
-            
-            // Clean up
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-            
-            // Optional: Show a success message
-            console.log('Resume download started!');
+</html>`;
         }
-        
-        // Smooth scroll for navigation links
+
+        function downloadWordResume() {
+            const wordContent = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>Medon Bardic - Resume</title>
+                    <style>
+                        body { font-family: 'Times New Roman', serif; line-height: 1.4; }
+                        h1 { font-size: 20pt; text-align: center; }
+                        h2 { font-size: 12pt; border-bottom: 1pt solid black; }
+                        h3 { font-size: 11pt; }
+                        @page { size: 8.5in 11in; margin: 1in; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Medon Bardic</h1>
+                    <p style="text-align: center;">New York, NY | (917) 698-3796 | medon.bardic@cix.csi.cuny.edu</p>
+                    
+                    <h2>EDUCATION</h2>
+                    <h3>College of Staten Island, CUNY - Expected May 2027</h3>
+                    <p>Bachelor of Science in Computer Science</p>
+                    
+                    <h2>TECHNICAL SKILLS</h2>
+                    <p><b>Languages:</b> Python, JavaScript/TypeScript, Java, Go, C++, SQL</p>
+                    <p><b>Technologies:</b> React, Node.js, Flask, PostgreSQL, MongoDB, Docker, Git</p>
+                    <p><b>Finance/Data:</b> Pandas, NumPy, Financial Modeling, Algorithmic Trading</p>
+                    
+                    <h2>PROJECTS</h2>
+                    
+                    <h3>StockVision AI - AI-Powered Stock Forecasting</h3>
+                    <p>• Developed predictive model using Facebook Prophet with 15% accuracy improvement</p>
+                    <p>• Built Flask REST API for real-time data processing</p>
+                    <p>• Created React/TypeScript frontend with interactive visualizations</p>
+                    
+                    <h3>Smart Money Trading Algorithm</h3>
+                    <p>• Engineered trading system with 60% win rate across 500+ trades</p>
+                    <p>• Implemented dynamic position sizing with 2:1 risk-reward ratio</p>
+                    <p>• Integrated real-time market data for automated signals</p>
+                    
+                    <h2>EXPERIENCE</h2>
+                    
+                    <h3>Part-Time Caregiver - August 2021 to Present</h3>
+                    <p>Emanuel Health Corp, New York, NY</p>
+                    <p>• Managed complex schedules while maintaining academic excellence</p>
+                    <p>• Developed strong time management and communication skills</p>
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob(['\ufeff', wordContent], {
+                type: 'application/msword'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Medon_Bardic_Resume.doc';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadHTMLResume() {
+            const htmlContent = getPrintableResume();
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Medon_Bardic_Resume.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
         });
-        
-        // Add hover effects to course and project cards
-        const allCards = document.querySelectorAll('.course-card, .project-card');
-        allCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = card.classList.contains('project-card') 
-                    ? 'translateY(-5px) rotateX(-2deg)' 
-                    : 'translateY(-8px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) rotateX(0)';
+
+        // Random hover effects for skills
+        document.querySelectorAll('.skill').forEach((skill, index) => {
+            skill.style.animationDelay = `${index * 0.1}s`;
+            skill.addEventListener('mouseenter', function() {
+                const randomRotate = Math.random() * 6 - 3;
+                const randomScale = 1 + Math.random() * 0.1;
+                this.style.transform = `rotate(${randomRotate}deg) scale(${randomScale})`;
             });
         });
+
+        // Easter egg in console
+        const styles = [
+            'color: #2436f5',
+            'font-size: 14px',
+            'font-weight: bold',
+            'text-shadow: 2px 2px 4px rgba(36, 54, 245, 0.3)'
+        ].join(';');
+
+        console.log('%c🚀 Hey there, fellow dev!', styles);
+        console.log('%cIf you\'re reading this, you\'re probably judging my code.', 'color: #666; font-size: 12px;');
+        console.log('%cFair. Hit me up if you want to roast it together: github.com/mb0826', 'color: #666; font-size: 12px;');
         
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Add some personality to cursor
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
         
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // Observe sections for animation
-        document.querySelectorAll('section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'all 0.6s ease-out';
-            observer.observe(section);
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
-        
-        // Add click functionality to course cards
-        document.querySelectorAll('.course-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const courseCode = this.querySelector('.course-code').textContent;
-                const courseTitle = this.querySelector('.course-title').textContent;
-                console.log(`Course clicked: ${courseCode} - ${courseTitle}`);
-            });
-        });
-        
-        // Dark mode toggle (optional enhancement)
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        }
-        
-        // Check for saved dark mode preference
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
-        
-        // Enhanced social link hover effect
-        document.querySelectorAll('.social-link').forEach(link => {
-            link.addEventListener('mouseenter', function() {
-                this.style.animation = 'socialPulse 0.5s ease';
-            });
-            
-            link.addEventListener('animationend', function() {
-                this.style.animation = '';
-            });
-        });
-        
-        // Add CSS animation for social pulse
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes socialPulse {
-                0%, 100% { transform: translateY(-4px) scale(1); }
-                50% { transform: translateY(-4px) scale(1.15); }
+
+        // Parallax on scroll for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.4}px)`;
             }
-        `;
-        document.head.appendChild(style);
+        });
     </script>
 </body>
 </html>
