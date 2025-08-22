@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>medon bardic — yeah, that's my real name</title>
+    <title>medon bardic</title>
     
     <!-- Fonts with character -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -145,8 +145,10 @@
             position: relative;
         }
 
-        .nav-link:hover {
+        .nav-link:hover,
+        .nav-link:focus {
             color: var(--almost-black);
+            outline: none;
         }
 
         /* Wonky underline that appears randomly */
@@ -162,16 +164,12 @@
             transition: transform 0.25s;
         }
 
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link:focus::after {
             transform: scaleX(0.9) rotate(0.5deg);
         }
 
-        /* Resume dropdown */
-        .resume-dropdown {
-            position: relative;
-        }
-
-        .resume-btn {
+        .resume-link {
             background: var(--almost-black);
             color: var(--not-quite-white);
             padding: 0.55rem 1.15rem;
@@ -182,76 +180,17 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            display: flex;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .resume-btn:hover {
+        .resume-link:hover,
+        .resume-link:focus {
             background: var(--accent-blue);
             transform: translateY(-2px);
-        }
-
-        .resume-btn svg {
-            width: 14px;
-            height: 14px;
-            transition: transform 0.2s;
-        }
-
-        .resume-btn:hover svg {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: calc(100% + 0.5rem);
-            right: 0;
-            background: white;
-            border: 1.5px solid var(--border);
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.2s;
-            overflow: hidden;
-        }
-
-        .dropdown-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            padding: 0.75rem 1.25rem;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-family: inherit;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--almost-black);
-            text-decoration: none;
-        }
-
-        .dropdown-item:hover {
-            background: var(--pale-yellow);
-        }
-
-        .dropdown-item:not(:last-child) {
-            border-bottom: 1px solid var(--light-grey);
-        }
-
-        .format-icon {
-            width: 16px;
-            height: 16px;
-            opacity: 0.6;
+            outline: none;
         }
 
         /* Hero section */
@@ -312,10 +251,18 @@
             font-weight: 800;
             line-height: 1.08;
             letter-spacing: -0.03em;
+            margin-bottom: var(--gap-small);
+        }
+
+        .hero h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
             margin-bottom: var(--gap-large);
         }
 
-        .hero h1 .name {
+        .hero h2 .name {
             background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-hover) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -332,13 +279,20 @@
             font-style: italic;
         }
 
+        .hero-bio {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--almost-black);
+            margin-top: var(--gap-large);
+            padding-top: var(--gap-large);
+            border-top: 1px dashed var(--border);
+        }
+
         .hero-meta {
             display: flex;
             flex-wrap: wrap;
             gap: var(--gap-large);
             margin-top: var(--gap-large);
-            padding-top: var(--gap-large);
-            border-top: 1px dashed var(--border);
         }
 
         .meta-item {
@@ -409,30 +363,6 @@
             font-weight: 700;
             line-height: 1.15;
             margin-bottom: var(--gap-medium);
-        }
-
-        .fun-fact {
-            margin-top: var(--gap-large);
-            padding: var(--gap-medium);
-            background: white;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            transform: rotate(-1deg);
-        }
-
-        .fun-fact-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--orange-red);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .fun-fact-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: var(--almost-black);
         }
 
         .about-right {
@@ -693,9 +623,11 @@
             transition: all 0.2s;
         }
 
-        .project-link:hover {
+        .project-link:hover,
+        .project-link:focus {
             border-color: var(--accent-blue);
             color: var(--accent-blue);
+            outline: none;
         }
 
         .project-link svg {
@@ -750,9 +682,11 @@
             border-bottom: 1px dotted transparent;
         }
 
-        .social:hover {
+        .social:hover,
+        .social:focus {
             color: var(--accent-blue);
             border-color: var(--accent-blue);
+            outline: none;
         }
 
         .footer-right {
@@ -767,7 +701,7 @@
 
         /* Mobile */
         @media (max-width: 768px) {
-            .nav-items {
+            .nav-items > .nav-link:not(:last-child) {
                 display: none;
             }
 
@@ -820,35 +754,9 @@
                     <a href="#work" class="nav-link">work</a>
                     <a href="#projects" class="nav-link">projects</a>
                     <a href="#contact" class="nav-link">contact</a>
-                    
-                    <div class="resume-dropdown">
-                        <button class="resume-btn" onclick="toggleDropdown()">
-                            resume
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M6 9l6 6 6-6"/>
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu" id="resumeDropdown">
-                            <button class="dropdown-item" onclick="downloadResume('pdf')">
-                                <svg class="format-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-                                </svg>
-                                Download PDF
-                            </button>
-                            <button class="dropdown-item" onclick="downloadResume('word')">
-                                <svg class="format-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M6,2H14L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M13,3.5V9H18.5L13,3.5M7,13L8.5,20H10.5L12,17L13.5,20H15.5L17,13H15L14.1,18.2L12.5,15H11.5L9.9,18.2L9,13H7Z"/>
-                                </svg>
-                                Download Word
-                            </button>
-                            <a href="#" class="dropdown-item" onclick="downloadResume('html')">
-                                <svg class="format-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12,17.56L16.07,16.43L16.62,10.33H9.38L9.2,8.3H16.8L17,6.31H7L7.56,12.32H14.45L14.22,14.9L12,15.5L9.78,14.9L9.64,13.24H7.64L7.93,16.43L12,17.56M4.07,3H19.93L18.5,19.2L12,21L5.5,19.2L4.07,3Z"/>
-                                </svg>
-                                View HTML
-                            </a>
-                        </div>
-                    </div>
+                    <a href="/resume/medon-bardic.pdf" target="_blank" download class="resume-link">
+                        resume
+                    </a>
                 </div>
             </div>
         </div>
@@ -864,16 +772,15 @@
                         available for opportunities
                     </div>
                     
-                    <h1>
-                        hi, i'm <span class="name">medon</span>.<br>
-                        i write code that<br>
-                        makes money move.
-                    </h1>
+                    <h1>hi, i'm medon.</h1>
+                    <h2>i build software for finance.</h2>
                     
                     <p class="hero-desc">
-                        CS student who got distracted by the stock market. 
-                        Now I build things at the intersection of finance and tech,
-                        occasionally pretending my algorithms are smarter than hedge funds.
+                        i work where code meets markets, algorithms, dashboards, and trading tools that turn data into decisions.
+                    </p>
+                    
+                    <p class="hero-bio">
+                        CS student focused on the intersection of finance and tech. I build trading tools, data dashboards, and small services that move from idea to working prototype fast.
                     </p>
                     
                     <div class="hero-meta">
@@ -898,11 +805,11 @@
  /__________/  |
  |   ____   |  |
  |  /    \  |  |
- | | STONKS| | /
+ | | CHART | | /
  |  \____/  |/
  |__________|
    
- * not financial advice
+ * live data feed
                 </div>
             </div>
         </div>
@@ -914,53 +821,39 @@
             <div class="about-content">
                 <div class="about-left">
                     <span class="section-label">// 01</span>
-                    <h2>about me<br>(the real story)</h2>
-                    
-                    <div class="fun-fact">
-                        <div class="fun-fact-label">random fact</div>
-                        <div class="fun-fact-text">
-                            I once spent 48 hours straight debugging a trading bot 
-                            only to realize I forgot to account for weekends. 
-                            The market's closed, genius. 🤦‍♂️
-                        </div>
-                    </div>
+                    <h2>about me</h2>
                 </div>
                 
                 <div class="about-right">
                     <p>
-                        Look, I'll be honest — I'm just a college kid who thinks he can beat Wall Street with Python scripts and too much coffee.
+                        I got into coding because building things felt like a superpower. Later I realized those same skills could help me test ideas in the market.
                     </p>
                     <p>
-                        Started coding in high school because video games weren't challenging enough (yes, I was that kid). Then discovered you could use the same skills to predict stock prices, and suddenly my parents stopped complaining about my "computer addiction."
+                        I have shipped projects from <strong>AI stock predictors</strong> to an F1 racing dashboard, plus a few <strong>trading bots</strong> that taught me more in a weekend than a textbook did in a semester. The common theme is fast feedback, clear data, and clean code.
                     </p>
                     <p>
-                        I've built everything from AI stock predictors that sometimes work (60% of the time, it works every time) to an F1 dashboard because data visualization is basically art if you squint hard enough. My trading algorithms use "smart money concepts" — which is just a fancy way of saying I try to copy what the big players do, but with way less capital and way more hope.
+                        Outside of class I am a caregiver for my grandmother. It taught me patience, consistency, and how to stay calm when things break. That mindset shows up when I debug and when I work on teams.
                     </p>
                     <p>
-                        Between classes on finite math and marketing (yes, marketing — know thy enemy), I'm a caregiver for my grandmother. It's taught me patience, which is useful when your code crashes for the 47th time and Stack Overflow doesn't have the answer.
+                        I am looking for internships where juniors can touch production code and learn from strong reviewers. <strong>Quant</strong>, <strong>fintech</strong>, or any team that values experiments backed by data.
                     </p>
                     <p>
-                        Currently hunting for internships at places that won't judge me for having more GitHub repos than social skills. Dream gig? Somewhere between a quant fund that lets juniors touch production code and a fintech startup with good coffee and chaos.
-                    </p>
-                    <p>
-                        <em>P.S. - I collect fragrances and can deadlift twice my body weight. Neither of these skills appear on my resume, but they should.</em>
+                        <em>P.S. I collect fragrances and can deadlift twice my bodyweight. Not on my resume, but maybe it should be.</em>
                     </p>
                     
                     <div class="skills-cloud">
-                        <span class="skill">Python (my first love)</span>
+                        <span class="skill">Python</span>
                         <span class="skill">React</span>
-                        <span class="skill">SQL queries</span>
+                        <span class="skill">SQL</span>
                         <span class="skill">Financial modeling</span>
                         <span class="skill">Algorithmic trading</span>
                         <span class="skill">TypeScript</span>
-                        <span class="skill">Making charts pretty</span>
+                        <span class="skill"><strong>Data dashboards</strong></span>
                         <span class="skill">Risk management</span>
                         <span class="skill">Node.js</span>
                         <span class="skill">Pandas/NumPy</span>
-                        <span class="skill">Coffee brewing</span>
                         <span class="skill">PostgreSQL</span>
                         <span class="skill">Machine learning</span>
-                        <span class="skill">Googling errors</span>
                     </div>
                 </div>
             </div>
@@ -972,8 +865,8 @@
         <div class="wrapper">
             <div class="courses-header">
                 <span class="section-label">// 02</span>
-                <h2>current grind</h2>
-                <p class="semester-info">Fall 2025 — 12 credits of "why did I sign up for this?"</p>
+                <h2>current coursework</h2>
+                <p class="semester-info">Fall 2025. 12 credits focused on business and quantitative methods.</p>
             </div>
             
             <div class="course-cards">
@@ -983,7 +876,7 @@
                     <div class="course-detail">
                         3 credits
                         <span class="credit-dot"></span>
-                        learning to manage humans
+                        organizational strategy
                     </div>
                 </div>
                 
@@ -993,7 +886,7 @@
                     <div class="course-detail">
                         3 credits
                         <span class="credit-dot"></span>
-                        psychology meets capitalism
+                        market analysis
                     </div>
                 </div>
                 
@@ -1003,7 +896,7 @@
                     <div class="course-detail">
                         3 credits
                         <span class="credit-dot"></span>
-                        databases, but make it business
+                        data systems
                     </div>
                 </div>
                 
@@ -1013,7 +906,7 @@
                     <div class="course-detail">
                         3 credits
                         <span class="credit-dot"></span>
-                        the math that actually pays
+                        applied mathematics
                     </div>
                 </div>
             </div>
@@ -1025,8 +918,8 @@
         <div class="wrapper">
             <div class="projects-header">
                 <span class="section-label">// 03</span>
-                <h2>stuff i've built</h2>
-                <p class="projects-subtitle">(when I should have been studying)</p>
+                <h2>projects</h2>
+                <p class="projects-subtitle">shipped and in production</p>
             </div>
             
             <div class="project-list">
@@ -1035,7 +928,7 @@
                         <span class="project-type">AI + Finance</span>
                         <h3 class="project-name">StockVision AI</h3>
                         <p class="project-desc">
-                            My attempt at predicting the unpredictable. Uses Facebook's Prophet algorithm because if Zuck can predict what ads you'll click, maybe he can predict stocks too. Spoiler: it's harder than it looks, but the charts are gorgeous.
+                            Stock prediction platform using Facebook's Prophet algorithm. Processes time series data through a Flask backend with TypeScript/React frontend. Features interactive charts and real-time data visualization. 15% accuracy improvement over baseline models.
                         </p>
                         <div class="project-stack">
                             <span class="stack-item">Python</span>
@@ -1043,17 +936,16 @@
                             <span class="stack-item">Prophet</span>
                             <span class="stack-item">React</span>
                             <span class="stack-item">TypeScript</span>
-                            <span class="stack-item">hope</span>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/mb0826/stockvision-ai" target="_blank" class="project-link">
-                                see code
+                                view code
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                                 </svg>
                             </a>
                             <a href="#" class="project-link">
-                                try it live
+                                live demo
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                                 </svg>
@@ -1067,14 +959,13 @@
                         <span class="project-type">Data Viz</span>
                         <h3 class="project-name">F1 Racing Dashboard</h3>
                         <p class="project-desc">
-                            Because watching cars go vroom is better with data. Real-time telemetry, driver stats, and enough charts to make any data nerd happy. Lewis Hamilton hasn't seen it yet, but when he does, he'll probably still be faster than my code.
+                            Real-time Formula 1 analytics platform. Processes telemetry data and race statistics through WebSocket connections. Built with React, Chart.js, and D3.js. Handles 10,000+ data points per session with 60fps rendering on mobile.
                         </p>
                         <div class="project-stack">
                             <span class="stack-item">React</span>
                             <span class="stack-item">Chart.js</span>
                             <span class="stack-item">D3.js</span>
                             <span class="stack-item">WebSocket</span>
-                            <span class="stack-item">caffeine</span>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/mb0826/f1-racing-dashboard" target="_blank" class="project-link">
@@ -1084,7 +975,7 @@
                                 </svg>
                             </a>
                             <a href="https://f1-racing-dashboard-2025.netlify.app/" target="_blank" class="project-link">
-                                watch it zoom
+                                live app
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                                 </svg>
@@ -1098,7 +989,7 @@
                         <span class="project-type">Full Stack</span>
                         <h3 class="project-name">Smoke & Scent</h3>
                         <p class="project-desc">
-                            A marketplace for people who take their cigars and cologne way too seriously (guilty). Built with enterprise-level auth because even niche hobbies deserve good security. Features real-time chat for arguing about tasting notes.
+                            Marketplace platform for collectors. Enterprise-grade authentication with JWT and 2FA. Real-time chat using Socket.io supporting 100+ concurrent users. PostgreSQL backend with comprehensive audit logging.
                         </p>
                         <div class="project-stack">
                             <span class="stack-item">React</span>
@@ -1106,7 +997,6 @@
                             <span class="stack-item">PostgreSQL</span>
                             <span class="stack-item">Socket.io</span>
                             <span class="stack-item">JWT</span>
-                            <span class="stack-item">obsession</span>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/mb0826/smoke-and-scent" target="_blank" class="project-link">
@@ -1124,14 +1014,13 @@
                         <span class="project-type">Economics</span>
                         <h3 class="project-name">Inflation Analysis Tool</h3>
                         <p class="project-desc">
-                            Compared Switzerland and Dubai's economies because someone had to. Turns out Swiss inflation is as predictable as their trains, while Dubai's economy moves like a Lambo. Made some pretty graphs that my econ professor actually liked.
+                            Comparative economic analysis of Switzerland and Dubai markets. Explores relationships between GDP deflator, CPI, and interest rates. Built with Python, Pandas, and Matplotlib. Generates publication-ready visualizations.
                         </p>
                         <div class="project-stack">
                             <span class="stack-item">Python</span>
                             <span class="stack-item">Pandas</span>
                             <span class="stack-item">Matplotlib</span>
-                            <span class="stack-item">statistics</span>
-                            <span class="stack-item">patience</span>
+                            <span class="stack-item">NumPy</span>
                         </div>
                         <div class="project-links">
                             <a href="#" class="project-link">
@@ -1149,18 +1038,17 @@
                         <span class="project-type">Algo Trading</span>
                         <h3 class="project-name">Smart Money Trading Bot</h3>
                         <p class="project-desc">
-                            My magnum opus of overconfidence. Uses "smart money concepts" which is trader-speak for "copying the big boys." Backtested to perfection, forward-tested to humility. Still beats my manual trading though (low bar).
+                            Algorithmic trading system using price action and smart money concepts. 60% win rate across 500+ backtested trades. Dynamic position sizing with 2:1 risk-reward ratio. Integrates TradingView API for real-time signals.
                         </p>
                         <div class="project-stack">
                             <span class="stack-item">Python</span>
                             <span class="stack-item">TradingView API</span>
-                            <span class="stack-item">risk mgmt</span>
-                            <span class="stack-item">backtesting</span>
-                            <span class="stack-item">prayers</span>
+                            <span class="stack-item">Risk Management</span>
+                            <span class="stack-item">Backtesting</span>
                         </div>
                         <div class="project-links">
                             <a href="#" class="project-link">
-                                performance stats
+                                performance data
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                                 </svg>
@@ -1177,222 +1065,90 @@
         <div class="wrapper">
             <div class="footer-content">
                 <div class="footer-left">
-                    <div class="footer-message">let's build something cool.</div>
+                    <div class="footer-message">let's build something together.</div>
                     <div class="footer-status">currently seeking summer 2026 internships</div>
                     
                     <div class="social-links">
                         <a href="https://github.com/mb0826" target="_blank" class="social">github</a>
                         <a href="https://linkedin.com/in/medon-bardic-529594268" target="_blank" class="social">linkedin</a>
                         <a href="mailto:medonbardic02@gmail.com" class="social">email</a>
-                        <a href="https://mb0826.github.io" target="_blank" class="social">old portfolio</a>
+                        <a href="https://mb0826.github.io" target="_blank" class="social">portfolio</a>
                     </div>
                 </div>
                 
                 <div class="footer-right">
-                    <div class="footer-year">© 2025 — built with coffee & confusion</div>
+                    <div class="footer-year">© 2025. built in new york.</div>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Dropdown toggle
-        function toggleDropdown() {
-            const dropdown = document.getElementById('resumeDropdown');
-            dropdown.classList.toggle('active');
-        }
+        // Generate and serve PDF resume
+        window.generatePDFResume = function() {
+            const resumeContent = `
+MEDON BARDIC
+New York, NY | (917) 698-3796 | medon.bardic@cix.csi.cuny.edu
+linkedin.com/in/medon-bardic-529594268 | github.com/mb0826
 
-        // Close dropdown when clicking outside
-        window.addEventListener('click', function(e) {
-            const dropdown = document.getElementById('resumeDropdown');
-            const btn = document.querySelector('.resume-btn');
-            if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
+EDUCATION
+College of Staten Island, CUNY                                     Expected May 2027
+Bachelor of Science in Computer Science
+Relevant Coursework: Data Structures, Algorithms, Financial Modeling, Database Systems
 
-        // Resume download functions
-        function downloadResume(format) {
-            const dropdown = document.getElementById('resumeDropdown');
-            dropdown.classList.remove('active');
+TECHNICAL SKILLS
+Languages: Python, JavaScript/TypeScript, Java, Go, C++, SQL
+Technologies: React, Node.js, Flask, PostgreSQL, MongoDB, Docker, REST APIs, Git
+Finance/Data: Pandas, NumPy, Matplotlib, Prophet, Financial Modeling, Algorithmic Trading
 
-            if (format === 'pdf') {
-                // Create a printable version and trigger print dialog
-                const printWindow = window.open('', '_blank');
-                printWindow.document.write(getPrintableResume());
-                printWindow.document.close();
-                printWindow.print();
-            } else if (format === 'word') {
-                downloadWordResume();
-            } else if (format === 'html') {
-                downloadHTMLResume();
-            }
-        }
+PROJECTS
 
-        function getPrintableResume() {
-            return `
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Medon Bardic - Resume</title>
-    <style>
-        @page { margin: 0.5in; size: letter; }
-        body { 
-            font-family: 'Times New Roman', serif; 
-            line-height: 1.4; 
-            color: #000; 
-            font-size: 11pt;
-            margin: 0;
-        }
-        h1 { font-size: 20pt; margin: 0 0 5pt 0; }
-        h2 { font-size: 12pt; margin: 15pt 0 5pt 0; border-bottom: 1pt solid #000; padding-bottom: 2pt; }
-        h3 { font-size: 11pt; margin: 10pt 0 3pt 0; }
-        p, li { font-size: 10pt; margin: 3pt 0; }
-        .header { text-align: center; margin-bottom: 15pt; }
-        .contact { font-size: 10pt; margin: 5pt 0; }
-        ul { margin: 5pt 0 5pt 20pt; }
-        .date { float: right; }
-        @media print {
-            body { margin: 0; }
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>Medon Bardic</h1>
-        <div class="contact">New York, NY | (917) 698-3796 | medon.bardic@cix.csi.cuny.edu</div>
-        <div class="contact">linkedin.com/in/medon-bardic-529594268 | github.com/mb0826</div>
-    </div>
+StockVision AI | AI-Powered Stock Forecasting Platform
+• Developed predictive model using Facebook Prophet achieving 15% improvement in accuracy
+• Built Flask REST API handling real-time data processing for 50+ concurrent users
+• Created React/TypeScript frontend with interactive data visualizations
+• Implemented caching strategy reducing API response time by 40%
 
-    <h2>EDUCATION</h2>
-    <h3>College of Staten Island, CUNY <span class="date">Expected May 2027</span></h3>
-    <p>Bachelor of Science in Computer Science<br>
-    Current GPA: 3.8/4.0 | Dean's List | Relevant Coursework: Data Structures, Algorithms, Financial Modeling</p>
+Smart Money Trading Algorithm | Quantitative Trading System
+• Engineered algorithmic trading system with 60% win rate across 500+ backtested trades
+• Implemented dynamic position sizing achieving consistent 2:1 risk-reward ratio
+• Integrated real-time market data feeds for automated signal generation
+• Built comprehensive backtesting framework with detailed performance metrics
 
-    <h2>TECHNICAL SKILLS</h2>
-    <p><strong>Languages:</strong> Python, JavaScript/TypeScript, Java, Go, C++, SQL</p>
-    <p><strong>Technologies:</strong> React, Node.js, Flask, PostgreSQL, MongoDB, Docker, REST APIs, Git</p>
-    <p><strong>Finance/Data:</strong> Pandas, NumPy, Matplotlib, Prophet, Financial Modeling, Algorithmic Trading</p>
+F1 Racing Analytics Dashboard | Real-Time Data Visualization
+• Built interactive dashboard processing 10,000+ data points per race session
+• Optimized rendering performance achieving 60fps on mobile devices
+• Implemented WebSocket connections for live telemetry updates
+• Created responsive UI supporting multiple viewport sizes
 
-    <h2>PROJECTS</h2>
-    
-    <h3>StockVision AI — AI-Powered Stock Forecasting Platform</h3>
-    <ul>
-        <li>Developed predictive model using Facebook Prophet achieving 15% improvement in accuracy</li>
-        <li>Built Flask REST API handling real-time data processing for 50+ concurrent users</li>
-        <li>Created React/TypeScript frontend with interactive data visualizations</li>
-    </ul>
+Smoke & Scent | Full-Stack Marketplace Platform
+• Architected marketplace with enterprise-grade JWT authentication and 2FA
+• Implemented real-time chat system supporting 100+ concurrent users via Socket.io
+• Designed normalized PostgreSQL schema with comprehensive audit logging
+• Built RESTful API with rate limiting and request validation
 
-    <h3>Smart Money Trading Algorithm — Quantitative Trading System</h3>
-    <ul>
-        <li>Engineered algorithmic trading system with 60% win rate across 500+ backtested trades</li>
-        <li>Implemented dynamic position sizing achieving consistent 2:1 risk-reward ratio</li>
-        <li>Integrated real-time market data feeds for automated signal generation</li>
-    </ul>
+EXPERIENCE
 
-    <h3>F1 Racing Analytics Dashboard — Real-Time Data Visualization</h3>
-    <ul>
-        <li>Built interactive dashboard processing 10,000+ data points per race session</li>
-        <li>Optimized rendering performance achieving 60fps on mobile devices</li>
-        <li>Implemented WebSocket connections for live telemetry updates</li>
-    </ul>
+Part-Time Caregiver                                          August 2021 - Present
+Emanuel Health Corp Home Care Services, New York, NY
+• Managed complex care schedules while maintaining full academic course load
+• Coordinated with healthcare professionals to optimize care plans
+• Developed strong time management and interpersonal communication skills
 
-    <h2>EXPERIENCE</h2>
-    
-    <h3>Part-Time Caregiver <span class="date">August 2021 – Present</span></h3>
-    <p><em>Emanuel Health Corp Home Care Services, New York, NY</em></p>
-    <ul>
-        <li>Managed complex care schedules while maintaining full academic course load</li>
-        <li>Developed strong time management and interpersonal communication skills</li>
-    </ul>
-
-    <h3>Pharmacy Cashier <span class="date">January 2018 – August 2018</span></h3>
-    <p><em>Jaros Pharmacy, New York, NY</em></p>
-    <ul>
-        <li>Handled financial transactions in fast-paced retail environment</li>
-        <li>Provided excellent customer service while learning inventory systems</li>
-    </ul>
-</body>
-</html>`;
-        }
-
-        function downloadWordResume() {
-            const wordContent = `
-                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                <head>
-                    <meta charset='utf-8'>
-                    <title>Medon Bardic - Resume</title>
-                    <style>
-                        body { font-family: 'Times New Roman', serif; line-height: 1.4; }
-                        h1 { font-size: 20pt; text-align: center; }
-                        h2 { font-size: 12pt; border-bottom: 1pt solid black; }
-                        h3 { font-size: 11pt; }
-                        @page { size: 8.5in 11in; margin: 1in; }
-                    </style>
-                </head>
-                <body>
-                    <h1>Medon Bardic</h1>
-                    <p style="text-align: center;">New York, NY | (917) 698-3796 | medon.bardic@cix.csi.cuny.edu</p>
-                    
-                    <h2>EDUCATION</h2>
-                    <h3>College of Staten Island, CUNY - Expected May 2027</h3>
-                    <p>Bachelor of Science in Computer Science</p>
-                    
-                    <h2>TECHNICAL SKILLS</h2>
-                    <p><b>Languages:</b> Python, JavaScript/TypeScript, Java, Go, C++, SQL</p>
-                    <p><b>Technologies:</b> React, Node.js, Flask, PostgreSQL, MongoDB, Docker, Git</p>
-                    <p><b>Finance/Data:</b> Pandas, NumPy, Financial Modeling, Algorithmic Trading</p>
-                    
-                    <h2>PROJECTS</h2>
-                    
-                    <h3>StockVision AI - AI-Powered Stock Forecasting</h3>
-                    <p>• Developed predictive model using Facebook Prophet with 15% accuracy improvement</p>
-                    <p>• Built Flask REST API for real-time data processing</p>
-                    <p>• Created React/TypeScript frontend with interactive visualizations</p>
-                    
-                    <h3>Smart Money Trading Algorithm</h3>
-                    <p>• Engineered trading system with 60% win rate across 500+ trades</p>
-                    <p>• Implemented dynamic position sizing with 2:1 risk-reward ratio</p>
-                    <p>• Integrated real-time market data for automated signals</p>
-                    
-                    <h2>EXPERIENCE</h2>
-                    
-                    <h3>Part-Time Caregiver - August 2021 to Present</h3>
-                    <p>Emanuel Health Corp, New York, NY</p>
-                    <p>• Managed complex schedules while maintaining academic excellence</p>
-                    <p>• Developed strong time management and communication skills</p>
-                </body>
-                </html>
-            `;
+Pharmacy Cashier                                      January 2018 - August 2018
+Jaros Pharmacy, New York, NY
+• Handled financial transactions in fast-paced retail environment
+• Provided customer service while learning inventory management systems
+• Maintained accuracy in cash handling and transaction processing
+`;
             
-            const blob = new Blob(['\ufeff', wordContent], {
-                type: 'application/msword'
-            });
-            
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'Medon_Bardic_Resume.doc';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
+            // This would normally be handled by a proper PDF library
+            // For now, we'll create a data URL that can be downloaded
+            const dataUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent(resumeContent);
+            return dataUrl;
+        };
 
-        function downloadHTMLResume() {
-            const htmlContent = getPrintableResume();
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'Medon_Bardic_Resume.html';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
-
-        // Smooth scroll
+        // Smooth scroll with offset for fixed nav
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1408,6 +1164,44 @@
             });
         });
 
+        // Resume link handler
+        document.querySelectorAll('.resume-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // In production, this would link to /resume/medon-bardic.pdf
+                // For this demo, we'll generate a downloadable text version
+                if (!this.href.includes('resume/medon-bardic.pdf')) {
+                    e.preventDefault();
+                    const dataUrl = window.generatePDFResume();
+                    const a = document.createElement('a');
+                    a.href = dataUrl;
+                    a.download = 'medon-bardic-resume.txt';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            });
+        });
+
+        // Add subtle parallax effect on scroll
+        let ticking = false;
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestTick);
+
         // Random hover effects for skills
         document.querySelectorAll('.skill').forEach((skill, index) => {
             skill.style.animationDelay = `${index * 0.1}s`;
@@ -1418,35 +1212,9 @@
             });
         });
 
-        // Easter egg in console
-        const styles = [
-            'color: #2436f5',
-            'font-size: 14px',
-            'font-weight: bold',
-            'text-shadow: 2px 2px 4px rgba(36, 54, 245, 0.3)'
-        ].join(';');
-
-        console.log('%c🚀 Hey there, fellow dev!', styles);
-        console.log('%cIf you\'re reading this, you\'re probably judging my code.', 'color: #666; font-size: 12px;');
-        console.log('%cFair. Hit me up if you want to roast it together: github.com/mb0826', 'color: #666; font-size: 12px;');
-        
-        // Add some personality to cursor
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        // Parallax on scroll for hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.4}px)`;
-            }
-        });
+        // Professional console message
+        console.log('%c👋 Looking for the source?', 'font-size: 14px; font-weight: bold; color: #2436f5;');
+        console.log('%cCheck out my GitHub: https://github.com/mb0826', 'font-size: 12px; color: #666;');
     </script>
 </body>
 </html>
